@@ -22,6 +22,6 @@ app
     )
   })
 
-const myName: string = 'Osmar (Mazinho)'
+const theAuthor: string = 'Desenvolvido por Osmar Menezes da Silva (Mazinho)'
 
-console.log(myName)
+console.log(theAuthor)
