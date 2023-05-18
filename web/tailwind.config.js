@@ -7,13 +7,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // configurar novas fontes -> ver layout.tsx
       fontFamily: {
-        // configurar novas fontes -> ver layout.tsx
-        sans: 'var(--font-roboto)',
-        alt: 'var(--font-baijam)',
+        sans: 'var(--font-robotof)',
+        alt: 'var(--font-baijamju)',
+      },
+      fontSize: {
+        '5xl': '2.5rem',
       },
       // configuração de cores que sobrescreve a paleta original do tailwind
-      color: {
+      colors: {
         gray: {
           50: '#eaeaea',
           100: '#bebebf',
@@ -74,6 +77,18 @@ module.exports = {
           800: '#027435',
           900: '#025929',
         },
+      },
+      // config da "regua"
+      backgroundImage: {
+        stripes:
+          'linear-gradient(to bottom, rgba(255, 255, 255, 0.2),rgba(255, 255, 255, 0.2) 12.5%, transparent 12.5%, transparent )',
+      },
+      backgroundSize: {
+        stripes: '100% 8px',
+      },
+      // config extra pro blur
+      blur: {
+        full: '194px',
       },
     },
   },

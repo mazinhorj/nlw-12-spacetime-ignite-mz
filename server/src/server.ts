@@ -14,7 +14,7 @@ app.get('/users', async () => {
 
 app
   .listen({
-    port: 3000,
+    port: 3333,
   })
   .then(() => {
     console.log(
