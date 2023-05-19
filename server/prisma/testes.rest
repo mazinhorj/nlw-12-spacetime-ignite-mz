@@ -1,0 +1,28 @@
+GET http://localhost:3333/memories
+
+###
+GET http://localhost:3333/memories/1f97224b-b3b3-4ed8-984d-8ff1e9633697
+
+###
+POST http://localhost:3333/memories
+Content-Type: application/json
+
+{
+  "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam provident aut accusamus quibusdam, exercitationem totam voluptate placeat fuga molestiae expedita natus distinctio, suscipit architecto nemo assumenda mollitia, laboriosam cupiditate saepe.",
+  "coverUrl": "https://images.unsplash.com/photo-1568684333877",
+  "isPublic": 1
+}
+###
+
+PUT http://localhost:3333/memories/85e2054d-c5f8-44f1-828f-0eaccb396b3c
+Content-Type: application/json
+
+{
+  "content": "PRONTO.",
+  "coverUrl": "https://images.unsplash.com/photo-1568684333877çojknsdfgdxcuvhs.mwnrngsdkvush",
+  "isPublic": 0
+}
+
+###
+
+DELETE http://localhost:3333/memories/86a990e4-cfe1-415a-b2c8-832c887a217e

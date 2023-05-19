@@ -1,27 +1,26 @@
 import fastify from 'fastify'
-import { PrismaClient } from '@prisma/client'
+import cors from '@fastify/cors'
+import { memoriesRoutes } from './routes/memoriesRoutes'
 
 const app = fastify()
-const prisma = new PrismaClient()
 
-app.get('/first', () => {
+app.register(cors, {
+  origin: true,
+})
+
+app.register(memoriesRoutes)
+
+app.get('/1st', () => {
   return 'Hello, world! \n To Infinity and Beyond!'
 })
-app.get('/users', async () => {
-  const users = await prisma.user.findMany()
-  return users
-})
 
+const theAuthor: string = 'Osmar Menezes da Silva (Mazinho)'
 app
   .listen({
     port: 3333,
   })
   .then(() => {
     console.log(
-      '-> ✅ Servidor rodando em http://localhost:3000 \n-> Use Ctrl+click para navegar.',
+      `-> Desenvolvido por ${theAuthor} \n-> ✅ Servidor rodando em http://localhost:3333`,
     )
   })
-
-const theAuthor: string = 'Desenvolvido por Osmar Menezes da Silva (Mazinho)'
-
-console.log(theAuthor)
