@@ -26,3 +26,16 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3333/memories/86a990e4-cfe1-415a-b2c8-832c887a217e
+
+###
+
+POST http://localhost:3333/register
+Content-Type: application/json
+
+{
+  "code": "350c2656eb5e0d8ed2e7"
+}
+
+
+###
+GET http://localhost:3333/users

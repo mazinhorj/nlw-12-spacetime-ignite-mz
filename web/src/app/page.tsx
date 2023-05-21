@@ -1,8 +1,14 @@
-import { User } from 'lucide-react'
-import Image from 'next/image'
-import nlwLogo from '../assets/nlw-spacetime-logo.svg'
+import { cookies } from 'next/headers'
+
+import Copyright from '@/components/Copyright'
+import Hero from '@/components/Hero'
+import NoMemories from '@/components/NoMemories'
+import SingIn from '@/components/SingIn'
+import Profile from '@/components/Profile'
 
 export default function Home() {
+  const isAuth = cookies().has('token')
+
   return (
     <main className="grid min-h-screen grid-cols-2">
       {/* left */}
@@ -13,72 +19,16 @@ export default function Home() {
         {/* stripes "régua" */}
         <div className="absolute bottom-0 right-1 top-0 w-2  bg-stripes" />
 
-        {/* sing in */}
-        <a
-          href=""
-          className="flex items-center gap-3 text-left transition-colors hover:text-gray-50"
-        >
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-400">
-            <User className="h-5 w-5 text-gray-500" />
-          </div>
+        {isAuth ? <Profile /> : <SingIn />}
 
-          <p className="max-w-[140px] text-sm leading-snug">
-            <span className="underline">Crie sua conta</span> e salve suas
-            memórias!
-          </p>
-        </a>
+        <Hero />
 
-        {/* hero */}
-        <div className="space-y-5">
-          <Image src={nlwLogo} alt="NLW Logo" />
-
-          <div className="max-w-[420px] space-y-1">
-            <h1 className="text-5xl font-bold leading-tight text-gray-50">
-              Sua cápsula do tempo
-            </h1>
-
-            <p className="text-lg leading-relaxed">
-              Colecione momentos marcantes da sua jornada e compartilhe (se
-              quiser) com o mundo!
-            </p>
-          </div>
-
-          <a
-            href=""
-            className="inline-block rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black hover:bg-green-600"
-          >
-            CADASTRAR LEMBRANÇA
-          </a>
-        </div>
-
-        {/* copyright */}
-        <div className="text-sm leading-relaxed text-gray-200">
-          <p>
-            Feito com 🤍 no NLW da{' '}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://rocketseat.com.br"
-              className="underline hover:text-gray-100"
-            >
-              Rocketseat
-            </a>{' '}
-            por Mazinho
-          </p>
-        </div>
+        <Copyright />
       </div>
 
       {/* right */}
       <div className="flex flex-col p-16">
-        <div className="flex flex-1 items-center justify-center">
-          <p className="w-[340px] text-center leading-relaxed">
-            Você ainda não lembranças registradas. Comece a{' '}
-            <a href="" className="underline hover:text-gray-50">
-              criar agora
-            </a>
-            !
-          </p>
-        </div>
+        <NoMemories />
       </div>
     </main>
   )

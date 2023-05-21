@@ -3,9 +3,17 @@ import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 
 export async function memoriesRoutes(app: FastifyInstance) {
+  // verificar autenticação para todas as rotas
+  app.addHook('preHandler', async (req) => {
+    await req.jwtVerify()
+  })
+
   // todas as memórias
-  app.get('/memories', async () => {
+  app.get('/memories', async (req) => {
     const memories = await prisma.memory.findMany({
+      where: {
+        userId: req.user.sub,
+      },
       orderBy: {
         createdAt: 'asc',
       },
@@ -31,10 +39,11 @@ export async function memoriesRoutes(app: FastifyInstance) {
         id,
       },
     })
-    // if (!memory) {
-    //   res.status(404).json({ message: 'Memória não localizada.' })
-    //   return
-    // }
+
+    if (!memory.isPublic && memory.userId !== req.user.sub) {
+      return res.status(401).send()
+    }
+
     return memory
   })
 
@@ -51,14 +60,14 @@ export async function memoriesRoutes(app: FastifyInstance) {
         content,
         coverUrl,
         isPublic,
-        userId: '68cbea14-cd5a-477c-9ed3-5224c686cd28',
+        userId: req.user.sub,
       },
     })
     return memory
   })
 
   // atualizar uma memória
-  app.put('/memories/:id', async (req) => {
+  app.put('/memories/:id', async (req, res) => {
     const paramsSchema = z.object({
       id: z.string().uuid(),
     })
@@ -72,7 +81,17 @@ export async function memoriesRoutes(app: FastifyInstance) {
     const { id } = paramsSchema.parse(req.params)
     const { content, coverUrl, isPublic } = bodySchema.parse(req.body)
 
-    const memory = await prisma.memory.update({
+    let memory = await prisma.memory.findUniqueOrThrow({
+      where: {
+        id,
+      },
+    })
+
+    if (memory.userId !== req.user.sub) {
+      return res.status(401).send()
+    }
+
+    memory = await prisma.memory.update({
       where: {
         id,
       },
@@ -86,11 +105,21 @@ export async function memoriesRoutes(app: FastifyInstance) {
   })
 
   // deletar uma memória
-  app.delete('/memories/:id', async (req) => {
+  app.delete('/memories/:id', async (req, res) => {
     const paramsSchema = z.object({
       id: z.string().uuid(),
     })
     const { id } = paramsSchema.parse(req.params)
+
+    const memory = await prisma.memory.findUniqueOrThrow({
+      where: {
+        id,
+      },
+    })
+
+    if (memory.userId !== req.user.sub) {
+      return res.status(401).send()
+    }
 
     await prisma.memory.delete({
       where: {
