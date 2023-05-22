@@ -9,8 +9,8 @@ module.exports = {
     extend: {
       // configurar novas fontes -> ver layout.tsx
       fontFamily: {
-        sans: 'var(--font-robotof)',
-        alt: 'var(--font-baijamju)',
+        sans: 'var(--font-roboto)',
+        alt: 'var(--font-baijam)',
       },
       fontSize: {
         '5xl': '2.5rem',
@@ -92,5 +92,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 }

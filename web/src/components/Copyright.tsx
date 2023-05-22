@@ -1,4 +1,4 @@
-const Copyright = () => {
+export function Copyright() {
   return (
     <div className="text-sm leading-relaxed text-gray-200">
       <p className="text-center">
@@ -16,5 +16,3 @@ const Copyright = () => {
     </div>
   )
 }
-
-export default Copyright

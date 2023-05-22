@@ -1,6 +1,6 @@
 import { User } from 'lucide-react'
 
-const SingIn = () => {
+export function SingIn() {
   return (
     <a
       href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
@@ -16,5 +16,3 @@ const SingIn = () => {
     </a>
   )
 }
-
-export default SingIn

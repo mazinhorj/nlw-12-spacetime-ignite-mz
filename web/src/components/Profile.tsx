@@ -1,7 +1,7 @@
-import { getUser } from '@/app/lib/auth'
+import { getUser } from '@/lib/auth'
 import Image from 'next/image'
 
-const Profile = () => {
+export function Profile() {
   const { name, avatarUrl } = getUser()
   return (
     <div className="flex items-center gap-3 text-left">
@@ -15,12 +15,13 @@ const Profile = () => {
 
       <p className="max-w-[140px] text-sm leading-snug">
         Olá, <span className="font-bold">{name}</span>!
-        <a href="" className="block text-red-400 hover:text-red-300">
+        <a
+          href="/api/auth/logout"
+          className="block text-red-400 hover:text-red-300"
+        >
           Me tire daqui!
         </a>
       </p>
     </div>
   )
 }
-
-export default Profile
